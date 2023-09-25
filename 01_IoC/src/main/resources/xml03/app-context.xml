@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean class="com.gdu.app01.xml03.Student" id="student">
+    
+    <property name="subjects">
+      <list>
+        <value>국어</value>
+        <value>영어</value>
+        <value>수학</value>
+      </list>
+    </property>
+  
+    <property name="contacts">
+      <set>
+        <value>010-0000-0000</value>
+        <value>010-0000-0000</value>
+        <value>031-9999-0000</value>
+      </set>
+    </property>
+    
+    <property name="friends">
+      <map>
+        <entry key="김민지" value="김민지"/>
+        <entry key="강해린" value="강해린"/>
+      </map>
+    </property>    
+  </bean>
+</beans>

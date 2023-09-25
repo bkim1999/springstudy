@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <!-- Namespaces의 "p" -> <property> 를 <bean>의 속성으로 넣을 수 있다. -->
+  
+  <bean class="com.gdu.app01.xml02.User" id="user" p:userNo="1" p:userId="minji"/>
+  
+  <bean class="com.gdu.app01.xml02.Board" id="board" p:title="김민지최고" p:user-ref="user"/>
+
+</beans>
