@@ -19,5 +19,14 @@
     <a href='${contextPath}/member/list.do'>member 목록</a>
   </div>
   
+  <div>
+    <a href="${contextPath}/blog/detail.do?blogNo=100">blog 100</a>
+  </div>
+  
+  <div>
+    <a href="${contextPath}/article/add.do?title=속보강해린여신">속보</a>
+  </div>
+  ${title}
+  ${sessionScope.title}
 </body>
 </html>

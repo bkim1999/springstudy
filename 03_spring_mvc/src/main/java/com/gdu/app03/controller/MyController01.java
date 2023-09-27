@@ -22,7 +22,7 @@ public class MyController01 {
    * 
    */
   
-  @RequestMapping(value={"/", "/index.do"}, method=RequestMethod.GET)
+  @RequestMapping(value={"/", "/index.do", "/main.do"}, method=RequestMethod.GET)
   public String welcome() {
     return "index";
   }
