@@ -9,26 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-  
+
   <div>
-    <a href='${contextPath}/board/list.do'>보드 목록</a>
-  </div>
-  
-  <div>
-    <a href='${contextPath}/notice/list.do'>notice 목록</a>
-    <a href='${contextPath}/member/list.do'>member 목록</a>
-  </div>
-  
-  <div>
-    <a href="${contextPath}/blog/detail.do?blogNo=100">blog 100</a>
-  </div>
-  
-  <div>
-    <a href="${contextPath}/article/add.do?title=속보강해린여신">속보</a>
-  </div>
-  
-  <div>
-    <form action="${contextPath}/faq/add.do" method="post">
+    <h3>작성 화면</h3>
+    <form action="${contextPath}/register.do" method="post">
+      <div>
+        <label for="articleNo">기사번호</label>
+        <input type="text" id="articleNo" name="articleNo">
+      </div>
       <div>
         <label for="title">제목</label>
         <input type="text" id="title" name="title">
@@ -38,9 +26,10 @@
         <input type="text" id="content" name="content">
       </div>
       <div>
-        <button>작성 완료</button>
+        <button type="submit">작성 완료</button>
       </div>
     </form>
   </div>
+  
 </body>
 </html>
