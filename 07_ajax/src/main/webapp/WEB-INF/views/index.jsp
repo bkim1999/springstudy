@@ -15,6 +15,7 @@
     <a href="${contextPath}/ajax1.do">연습1</a>
     <a href="${contextPath}/ajax2.do">연습2</a>
     <a href="${contextPath}/ajax3.do">연습3</a>
+    <a href="${contextPath}/ajax4.do">연습4</a>
 
   </div>
   
