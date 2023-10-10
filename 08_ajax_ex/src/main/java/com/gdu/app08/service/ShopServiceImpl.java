@@ -47,7 +47,7 @@ public class ShopServiceImpl implements ShopService {
     
   }
   
-  private static String get(String apiUrl, Map<String, String> requestHeaders){
+  private String get(String apiUrl, Map<String, String> requestHeaders){
     HttpURLConnection con = connect(apiUrl);
     try {
         con.setRequestMethod("GET");
@@ -69,7 +69,7 @@ public class ShopServiceImpl implements ShopService {
     }
   } 
   
-  private static HttpURLConnection connect(String apiUrl){
+  private HttpURLConnection connect(String apiUrl){
     try {
         URL url = new URL(apiUrl);
         return (HttpURLConnection)url.openConnection();
@@ -81,7 +81,7 @@ public class ShopServiceImpl implements ShopService {
 }
 
 
-  private static String readBody(InputStream body){
+  private String readBody(InputStream body){
       InputStreamReader streamReader = new InputStreamReader(body);
   
   

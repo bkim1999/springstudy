@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+
+	<!-- 콘솔 Appenders -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+      <pattern>%-5level - %logger - %msg%n</pattern>
+    </encoder>
+	</appender>
+  
+  <!-- FileAppender -->
+  <appender name="file" class="ch.qos.logback.core.FileAppender">
+    <file>/log/app09_log.log</file>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <pattern>[%d{HH:mm:ss, Asia/Seoul}]%-5level - %logger - %msg%n</pattern>
+    </encoder>
+  </appender>
+	
+  <!-- RollingFileAppender -->
+  
+  <appender name="rolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>/log/app09.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <maxFileSize>100MB</maxFileSize>
+      <maxHistory>30</maxHistory>
+      <totalSizeCap>3GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>[%d{HH:mm:ss, Asia/Seoul}]%-5level - %logger - %msg%n</pattern>
+    </encoder>
+  </appender>
+  
+	<!-- Application Loggers -->
+	<logger name="com.gdu.app09" level="info" />
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework" level="info" />
+  
+  <logger name="log4jdbc" level="info" />
+  
+  <logger name="jdbc.sqlonly" level="info" />
+  
+  <logger name="jdbc.sqltiming" level="off" />
+  
+  <logger name="jdbc.resultsettable" level="info" />
+  <logger name="jdbc.connection" level="off" />
+  <logger name="jdbc.audit" level="off" />
+  <logger name="jdbc.resultset" level="off" />
+
+	<!-- Root Logger -->
+	<root>
+		<priority value="warn" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+		<appender-ref ref="rolling" />
+	</root>
+	
+</configuration>
