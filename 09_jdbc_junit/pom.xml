@@ -51,11 +51,6 @@
         <artifactId>logback-classic</artifactId>
         <version>1.4.11</version>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${org.slf4j-version}</version>
-    </dependency>
     
     <!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
     <dependency>
