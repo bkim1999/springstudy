@@ -1,12 +1,12 @@
-package com.gdu.app11.service;
+package com.gdu.app12.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gdu.app11.dao.ContactDao;
-import com.gdu.app11.dto.ContactDto;
+import com.gdu.app12.dao.ContactMapper;
+import com.gdu.app12.dto.ContactDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ContactServiceImpl implements ContactService {
   
-  private final ContactDao contactDao;
+  private final ContactMapper contactDao;
   
   @Override
   public int addContact(ContactDto contactDto) {
@@ -49,4 +49,10 @@ public class ContactServiceImpl implements ContactService {
     contactDao.insert(new ContactDto(0, "김민지", "010", "김민지@", "뉴진스로", null));
     contactDao.insert(new ContactDto());
   }
+  
+  @Override
+  public void deleteOldestContact() {
+    contactDao.deleteOldestContact();
+  }
+  
 }

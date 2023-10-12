@@ -1,4 +1,4 @@
-package com.gdu.app10.aop;
+package com.gdu.app12.aop;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -15,28 +15,16 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Component
-@Slf4j  // private static final Logger log = LoggerFactory.getLogger(BeforeAop.class);
+@Slf4j
 @Aspect
-public class BeforeAop {
-
-  // 포인트컷 : 언제 동작하는가?
-  @Pointcut("execution(* com.gdu.app10.controller.*Controller.*(..))")
+@Component
+public class LogAop {
+  
+  @Pointcut("execution(* com.gdu.app12.controller.*Controller.*(..))")
   public void setPointCut() { }
   
-  // 어드바이스 : 무슨 동작을 하는가?
   @Before("setPointCut()")
   public void beforeAdvice(JoinPoint joinPoint) {
-    
-    /*
-     * Before 어드바이스
-     * 1. 반환타입 : void
-     * 2. 메소드명 : 마음대로
-     * 3. 매개변수 : JoinPoint
-     */
-    
-    /* ContactController의 모든 메소드가 동작하기 전에 요청(방식/주소/파라미터) 출력하기 */
-        
     // 1. HttpServletRequest
     ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
     HttpServletRequest request = servletRequestAttributes.getRequest();
@@ -56,8 +44,7 @@ public class BeforeAop {
     
     // 4. 로그 찍기 (치환 문자 {} 활용)
     log.info("{} {}", request.getMethod(), request.getRequestURI());  // 요청 방식, 요청 주소
-    log.info("{}", params);                                           // 요청 파라미터
-    
+    log.info("{}", params);   
   }
   
 }
