@@ -8,6 +8,89 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="${contextPath}/resources/ckeditor/ckeditor.js"></script>
+<script>
+
+  $(function(){
+	  fnUpload();
+	  fnFileCheck();
+	  fnCkeditor();
+  });
+  
+  function fnUpload(){
+    $('#btn_upload').click(function(){
+      var formData = new FormData();
+      var files = $('.files')[0].files;
+      $.each(files, function(i, elem){
+        formData.append('files', elem);
+      });
+      $.ajax({
+        type: 'post',
+        url: '${contextPath}/ajax/upload.do',
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function(resData){
+          if(resData.success){
+            alert('성공');
+          } else{
+            alert('실패');
+          }
+        }
+      });
+      location.href = "${contextPath}/main.do";
+    });
+  }
+  
+  function fnFileCheck(){
+    $('.files').change(function(){
+      $('#file_list').empty();
+      var maxSize = 1024 * 1024 * 10;
+      var maxSizePerFile = 1024 * 1024 * 1;
+      var totalSize = 0;
+      var files = this.files;
+      for(let i = 0; i < files.length; i++){
+        totalSize += files[i].size;
+        if(files[i].size > maxSizePerFile){
+          alert('각 첨부파일의 최대 크기는 10MB입니다.');
+          $(this).val('');
+          $('#file_list').empty();
+          return;
+        }
+        $('#file_list').append('<div>' + files[i].name + '</div>');
+      }
+      if(totalSize > maxSize){
+        alert('첨부파일의 최대 크기는 10MB이다.');
+        $(this.files).val('');
+        return;
+      }
+    });
+  }
+  
+  function fnCkeditor(){
+	  
+	  CKEDITOR.replace('contents', {
+		  width : '1000px',
+		  height: '400px',
+		  filebrowserImageUploadUrl : '${contextPath}/ckeditor/upload.do',
+	  });
+	  
+	  CKEDITOR.on('dialogDefinition', function(event){
+		  var dialogName = event.data.name;
+		  var dialogDefinition = event.data.definition;
+		  switch(dialogName){
+		  case 'image':
+			  dialogDefinition.removeContents('Link');
+			  dialogDefinition.removeContents('advanced');
+			  break;
+		  }
+	  });
+	  
+  }
+  
+</script>
+
 <body>
 
   <div>
@@ -22,8 +105,6 @@
       </div>
     </form>
   </div>
-  <script>
-  </script>
   
   <hr>
   
@@ -36,63 +117,17 @@
       <button type="button" id="btn_upload">업로드</button>
     </div>
   </div>
-  <script>
+
+  <hr>
   
-    fnUpload();
-    
-    function fnUpload(){
-    	$('#btn_upload').click(function(){
-    		var formData = new FormData();
-    		var files = $('.files')[0].files;
-    		$.each(files, function(i, elem){
-    	    formData.append('files', elem);
-    		});
-    		$.ajax({
-    			type: 'post',
-    			url: '${contextPath}/ajax/upload.do',
-    			data: formData,
-    			contentType: false,
-    			processData: false,
-    			dataType: 'json',
-    			success: function(resData){
-    				if(resData.success){
-    					alert('성공');
-    				} else{
-    					alert('실패');
-    				}
-    			}
-    		});
-    		location.href = "${contextPath}/main.do";
-    	});
-    }
-    
-    fnFileCheck();
-    
-    function fnFileCheck(){
-      $('.files').change(function(){
-        $('#file_list').empty();
-        var maxSize = 1024 * 1024 * 10;
-        var maxSizePerFile = 1024 * 1024 * 1;
-        var totalSize = 0;
-        var files = this.files;
-        for(let i = 0; i < files.length; i++){
-          totalSize += files[i].size;
-          if(files[i].size > maxSizePerFile){
-            alert('각 첨부파일의 최대 크기는 10MB입니다.');
-            $(this).val('');
-            $('#file_list').empty();
-            return;
-          }
-          $('#file_list').append('<div>' + files[i].name + '</div>');
-        }
-        if(totalSize > maxSize){
-          alert('첨부파일의 최대 크기는 10MB이다.');
-          $(this.files).val('');
-          return;
-        }
-      });
-    }
-    
-  </script>
+  <div>
+    <h3>CKEditor</h3>
+    <form>
+      <div>
+        <textarea id="contents"></textarea>
+      </div>
+    </form>
+  </div>
+  
 </body>
 </html>
