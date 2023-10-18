@@ -81,5 +81,28 @@ public class FileServiceImpl implements FileService {
     return Map.of("success", true);
     
   }
+  
+  @Override
+  public Map<String, Object> ckeditorUpload(MultipartFile upload, String contextPath) {
+
+    String path = myFileUtil.getPath();
+    File dir = new File(path);
+    if(!dir.exists()) {
+      dir.mkdirs();
+    }
+
+    String originalName = upload.getOriginalFilename();
+    String filesystemName = myFileUtil.getFilesystemName(originalName);
+    File file = new File(dir, filesystemName);
+    try {
+      upload.transferTo(file);
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+    
+    return Map.of("url", contextPath + path + "/" + filesystemName
+                , "uploaded", true);
+    
+  }
 
 }
