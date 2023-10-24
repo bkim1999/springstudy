@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gdu.myhome.dto.UserDto;
 import com.gdu.myhome.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,15 +28,28 @@ public class UserController {
   private final UserService userService;
   
   @GetMapping(value="/login.form")
-  public String loginForm(HttpServletRequest request, Model model) {
+  public String loginForm(HttpServletRequest request, Model model) throws Exception {
     String referer = request.getHeader("referer");
     model.addAttribute("referer", referer == null ? request.getContextPath() + "/main.do" : referer);
+    model.addAttribute("url", userService.getNaverLoginURL(request));
     return "user/login";
   }
   
   @PostMapping(value="/login.do")
-  public void login(HttpServletRequest request, HttpServletResponse response) {
+  public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
     userService.login(request, response);
+  }
+  
+  @GetMapping(value="/naver/getAccessToken.do")
+  public String getAccessToken(HttpServletRequest request) throws Exception{
+    String accessToken = userService.getNaverAccessToken(request);
+    return "redirect:/user/naver/getProfile.do?accessToken=" + accessToken;
+  }
+  
+  @GetMapping(value="/naver/getProfile.do")
+  public void getProfile(@RequestParam String accessToken) throws Exception {
+    UserDto user = userService.getNaverProfile(accessToken);
+    System.out.println(user);
   }
   
   @GetMapping(value="/logout.do")
@@ -100,9 +114,21 @@ public class UserController {
     userService.changePw(request, response);
   }
   
-  @PostMapping(value="/leaveUser.do")
+  @PostMapping(value="/leave.do")
   public void leaveUser(HttpServletRequest request, HttpServletResponse response) {
     userService.leaveUser(request, response);
   }   
+  
+  @GetMapping(value="/active.form")
+  public String activeForm(){
+    return "user/active";
+  }   
+  
+  @GetMapping(value="/active.do")
+  public void active(HttpServletRequest request, HttpServletResponse response){
+    userService.active(request.getSession(), request, response);
+  }   
+  
+  
   
 }

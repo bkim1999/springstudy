@@ -40,6 +40,9 @@ const fnChangePwForm = () => {
 
 const fnLeaveUser = () => {
   $('#btn_leaveUser').click((ev) => {
-    location.href = getContextPath() + '/user/leaveUser.do';
+    if(confirm('회원 탈퇴하시겠습니까?')){
+      $('#frm_mypage').prop('action', getContextPath() + '/user/leave.do');
+      $('#frm_mypage').submit();
+    }
   });
 }

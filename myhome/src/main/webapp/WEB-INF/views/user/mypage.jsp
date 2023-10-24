@@ -19,10 +19,10 @@
   <div>
     <button type="button" id="btn_changePw">비밀번호변경</button>
   </div>
+  <form id="frm_mypage" method="post">
   
-  <div>이메일 : ${sessionScope.user.email}</div>
-  <div>가입일 : ${sessionScope.user.joinedAt}</div><div>
-  <form id="frm_mypage">
+    <div>이메일 : ${sessionScope.user.email}</div>
+    <div>가입일 : ${sessionScope.user.joinedAt}</div><div>
     <div>
       <label for="name">이름</label>
       <input type="text" id="name" name="name" value="${sessionScope.user.name}">

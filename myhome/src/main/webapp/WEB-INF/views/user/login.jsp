@@ -31,6 +31,11 @@
     </div>
   </form>
   
+  <hr>
+  
+  <div>
+    <a href="${url}"><img src="${contextPath}/resources/image/btnG_축약형.png" width="100px"></a>
+  </div>
 </div>
 
 <%@ include file="../layout/footer.jsp" %>

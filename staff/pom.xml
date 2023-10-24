@@ -4,8 +4,8 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.gdu</groupId>
-  <artifactId>myhome</artifactId>
-  <name>myhome</name>
+  <artifactId>staff</artifactId>
+  <name>staff</name>
   <packaging>war</packaging>
   <version>1.0.0-BUILD-SNAPSHOT</version>
 
@@ -20,49 +20,12 @@
 
   <dependencies>
 
-    <!-- https://mvnrepository.com/artifact/org.json/json -->
-    <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20231013</version>
-    </dependency>
-
-    <!-- Random String: 이메일 인증코드 -->
-    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-    <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.12.0</version>
-    </dependency>
-    
-    <!-- 이메일 전송 API -->
-    <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
-    <dependency>
-        <groupId>com.sun.mail</groupId>
-        <artifactId>javax.mail</artifactId>
-        <version>1.6.2</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context-support</artifactId>
-        <version>${org.springframework-version}</version>
-    </dependency>
-    
-    <!-- 파일 업로드 -->
     <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
     <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>2.8.0</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-    <dependency>
-        <groupId>commons-fileupload</groupId>
-        <artifactId>commons-fileupload</artifactId>
-        <version>1.5</version>
-    </dependency>
-    
     
     <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
     <dependency>
@@ -208,7 +171,7 @@
   </dependencies>
   
   <build>
-    <finalName>${artifactId}</finalName>
+    <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-eclipse-plugin</artifactId>
