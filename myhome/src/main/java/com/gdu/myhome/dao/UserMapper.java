@@ -14,13 +14,14 @@ public interface UserMapper {
   public LeaveUserDto getLeaveUser(Map<String, Object> map);
   public InactiveUserDto getInactiveUser(Map<String, Object> map);
   public int insertAccess(String email);
-  public int insertUser(UserDto userDto);
-  public int updateUser(UserDto userDto);
-  public int updateUserPw(UserDto userDto);
-  public int deleteUser(UserDto userDto);
-  public int insertLeaveUser(UserDto userDto);
+  public int insertUser(UserDto user);
+  public int updateUser(UserDto user);
+  public int updateUserPw(UserDto user);
+  public int deleteUser(UserDto user);
+  public int insertLeaveUser(UserDto user);
   public int insertInactiveUser();
   public int deleteUserForInactive();
   public int insertActiveUser(String email);
   public int deleteInactiveUser(String email);
+  public int insertNaverUser(UserDto user);
 }

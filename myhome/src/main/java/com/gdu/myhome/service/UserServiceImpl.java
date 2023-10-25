@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
@@ -52,7 +51,6 @@ public class UserServiceImpl implements UserService {
     
     InactiveUserDto inactiveUser = userMapper.getInactiveUser(map);
     
-
     HttpSession session = request.getSession();
     if(inactiveUser != null) {
       session.setAttribute("inactiveUser", inactiveUser);
@@ -97,8 +95,6 @@ public class UserServiceImpl implements UserService {
     sb.append("&client_id=" + client_id);
     sb.append("&redirect_uri=" + redirect_uri);
     sb.append("&state=" + state);
-    
-    request.getSession().setAttribute("state", state);
     
     return sb.toString();
   }
@@ -181,6 +177,81 @@ public class UserServiceImpl implements UserService {
   }
   
   @Override
+  public UserDto getUser(String email) {
+    return userMapper.getUser(Map.of("email", email));
+  }
+  
+  @Override
+  public void insertNaverUser(HttpServletRequest request, HttpServletResponse response) {
+    String email = request.getParameter("email");
+    String name = mySecurityUtils.preventXSS(request.getParameter("name"));
+    String gender = request.getParameter("gender");
+    String mobile = request.getParameter("mobile").replace("-", "");
+    String postcode = request.getParameter("postcode");
+    String roadAddress = request.getParameter("roadAddress");
+    String jibunAddress = request.getParameter("jibunAddress");
+    String detailAddress = mySecurityUtils.preventXSS(request.getParameter("detailAddress"));
+    String event = request.getParameter("event") != null ? "on" : "off";
+    
+    UserDto user = UserDto.builder()
+                    .email(email)
+                    .name(name)
+                    .gender(gender)
+                    .mobile(mobile)
+                    .postcode(postcode)
+                    .roadAddress(roadAddress)
+                    .jibunAddress(jibunAddress)
+                    .detailAddress(detailAddress)
+                    .agree(event.equals("on") ? 1 : 0)
+                    .build();
+    
+    int naverJoinResult = userMapper.insertNaverUser(user);
+    try {
+      response.setContentType("text/html; charset=UTF-8");
+      PrintWriter out = response.getWriter();
+      out.println("<script>");
+      if(naverJoinResult == 1) {
+        request.getSession().setAttribute("user", user);
+        userMapper.insertAccess(email);
+        out.println("alert('네이버 간편가입에 성공하였습니다.');");
+      } else {
+        out.println("alert('네이버 간편가입에 실패하였습니다.");
+      }
+      out.println("location.href='" + request.getContextPath() + "/main.do';");
+      out.println("</script>");
+      out.flush();
+      out.close();
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  
+  @Override
+  public void naverLogin(HttpServletRequest request, HttpServletResponse response, UserDto naverProfile) {
+    
+    String email = naverProfile.getEmail();
+    UserDto user = userMapper.getUser(Map.of("email", email));
+    
+    if(user != null) {
+      request.getSession().setAttribute("user", user);
+      userMapper.insertAccess(email);
+    } else {
+      try {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("alert('존재하지 않는 사용자입니다.')");
+        out.println("location.href='" + request.getContextPath() + "/main.do';");
+        out.println("</script>");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    
+  }
+  
+  @Override
   public void logout(HttpServletRequest request, HttpServletResponse response) {
 
     HttpSession session = request.getSession();
@@ -221,7 +292,7 @@ public class UserServiceImpl implements UserService {
     String pw = mySecurityUtils.getSHA256(request.getParameter("pw"));
     String name = mySecurityUtils.preventXSS(request.getParameter("name"));
     String gender = request.getParameter("gender");
-    String mobile = request.getParameter("mobile");
+    String mobile = request.getParameter("mobile").replace("-", "");
     String postcode = request.getParameter("postcode");
     String roadAddress = request.getParameter("roadAddress");
     String jibunAddress = request.getParameter("jibunAddress");

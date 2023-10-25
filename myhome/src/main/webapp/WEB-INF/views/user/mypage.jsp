@@ -29,9 +29,9 @@
     </div>
     <div>
       <div>성별</div>
-      <input type="radio" id="man" name="gender" value="man">
+      <input type="radio" id="man" name="gender" value="M">
       <label for="man">남자</label>
-      <input type="radio" id="woman" name="gender" value="woman">
+      <input type="radio" id="woman" name="gender" value="F">
       <label for="woman">여자</label>
       <input type="radio" id="none" name="gender" value="none">
       <label for="none">선택안함</label>

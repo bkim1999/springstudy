@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,9 +48,21 @@ public class UserController {
   }
   
   @GetMapping(value="/naver/getProfile.do")
-  public void getProfile(@RequestParam String accessToken) throws Exception {
-    UserDto user = userService.getNaverProfile(accessToken);
-    System.out.println(user);
+  public String getProfile(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+    UserDto naverProfile = userService.getNaverProfile(request.getParameter("accessToken"));
+    UserDto user = userService.getUser(naverProfile.getEmail());
+    if(user == null) {
+      model.addAttribute("naverProfile", naverProfile);
+      return "user/naver_join";
+    } else {
+      userService.naverLogin(request, response, naverProfile);
+      return "redirect:/main.do";
+    }
+  }
+  
+  @PostMapping(value="/naver/join.do")
+  public void naverJoin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    userService.insertNaverUser(request, response);
   }
   
   @GetMapping(value="/logout.do")

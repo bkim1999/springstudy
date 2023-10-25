@@ -7,39 +7,38 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
     
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="회원가입" name="title"/>
+  <jsp:param value="네이버 간편가입" name="title"/>
 </jsp:include>
 
-<script src="${contextPath}/resources/js/user_join.js?dt=${dt}"></script>
+<script>
+
+  $(() => {
+	  fnNaverJoin();
+  });
   
-<h2>회원가입</h2>
+  const fnNaverJoin = () => {
+	  $('#frm_naver_join').submit((ev) => {
+		  if(!$('#service').is(':checked')){
+			  alert('필수 항목에 동의하세요.');
+			  ev.preventDefault();
+			  return;
+		  }
+	  })
+  }
+</script>
+  
+<h2>네이버 간편가입</h2>
 
 <div>
 
-  <form method="post" action="${contextPath}/user/join.do" id="frm_join">
+  <form method="post" action="${contextPath}/user/naver/join.do" id="frm_naver_join">
     <div>
       <label for="email">이메일</label>
-      <input type="text" name="email" id="email" placeholder="admin@gmail.com">
-      <button type="button" id="btn_get_code">인증코드 받기</button>
-    </div>
-    <div id="msg_email"> </div>
-    <div>
-      <input type="text" id="code" placeholder="인증코드 입력">
-      <button type="button" id="btn_verify_code">인증하기</button>
-    </div>
-    <div>
-      <label for="pw">비밀번호</label>
-      <input type="password" name="pw" id="pw">
-      <span id="msg_pw"></span>
-    </div>
-    <div>
-      <label for="pw_check">비밀번호 확인</label>
-      <input type="password" id="pw_check">
-      <span id="msg_pw_check"></span>
+      <input type="text" name="email" id="email" value="${naverProfile.email}">
     </div>
     <div>
       <label for="name">이름</label>
-      <input type="text" id="name" name="name">
+      <input type="text" id="name" name="name" value="${naverProfile.name}" readonly>
       <span id="msg_name"></span>
     </div>
     <div>
@@ -48,9 +47,10 @@
       <label for="man">남자</label>
       <input type="radio" id="woman" name="gender" value="F">
       <label for="woman">여자</label>
-      <input type="radio" id="none" name="gender" value="none">
-      <label for="none">선택안함</label>
     </div>
+    <script>
+      $(':radio[value=${naverProfile.gender}]').prop('checked', true);
+    </script>
     
     <div>
       <input type="text" name="postcode" id="postcode" placeholder="우편번호" readonly>
@@ -97,13 +97,28 @@
     </script>
   
     <div>
-      <label for="mobile">휴대전화(- 제외)</label>
-      <input type="text" name="mobile" id="mobile">
+      <label for="mobile">휴대전화</label>
+      <input type="text" name="mobile" id="mobile" value="${naverProfile.mobile}" readonly>
       <span id="msg_mobile"></span>
     </div>
-  
+    
+    <hr>
+    
     <div>
-      <input type="hidden" name="event" value="${event}">
+      <input type="checkbox" id="service" name="service">
+      <label for="service">서비스 이용약관 동의(필수)</label>
+    </div>
+    <div>
+      <textarea>본 약관은...</textarea>
+    </div>
+    <div>
+      <input type="checkbox" id="event" name="event">
+      <label for="event">이벤트 수신 동의(선택)</label>
+    </div>
+    <div>
+      <textarea>본 약관은...</textarea>
+    </div>
+    <div>
       <button>회원가입</button>
     </div>
     

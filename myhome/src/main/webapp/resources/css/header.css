@@ -25,8 +25,23 @@
   width: 1000px;
   height: auto;
   margin: 0 auto;
+  text-align: center;
 }
 .gnb {
   display: flex;
   justify-content: space-between;
+}
+
+.gnb li {
+  width: 100%;
+}
+.gnb a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  line-height: 48px;
+  cursor: pointer;
+}
+.gnb a:hover {
+  background-color: #efefef;
 }
