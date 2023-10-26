@@ -58,7 +58,7 @@ public class PageUtil {
     if(beginPage == 1) {
       sb.append("<a>이전</a>");
     } else {
-      sb.append("<a href=\"" + url + "?page=" + (beginPage - 1) + "\">이전</a>");
+      sb.append("<a href=\"" + url + "page=" + (beginPage - 1) + "\">이전</a>");
     }
     
     // 페이지 번호
@@ -66,7 +66,7 @@ public class PageUtil {
       if(p == page) {
         sb.append("<a>" + p + "</a>");
       } else {
-        sb.append("<a href=\"" + url + "?page=" + p + "\">" + p + "</a>");
+        sb.append("<a href=\"" + url + "page=" + p + "\">" + p + "</a>");
       }
     }
     
@@ -74,7 +74,7 @@ public class PageUtil {
     if(endPage == totalPage) {
       sb.append("<a>다음</a>");
     } else {
-      sb.append("<a href=\"" + url + "?page=" + (endPage + 1) + "\">다음</a>");
+      sb.append("<a href=\"" + url + "page=" + (endPage + 1) + "\">다음</a>");
     }
     
     sb.append("</div>");

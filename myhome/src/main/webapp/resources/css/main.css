@@ -6,6 +6,5 @@
 .main_wrap {
   width: 100%;
   min-height: 500px;
-  text-align: left;
-  margin: 10px auto;
-  }
+  padding-top: 20px;
+}
