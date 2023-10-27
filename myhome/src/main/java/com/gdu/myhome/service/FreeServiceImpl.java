@@ -10,13 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gdu.myhome.dao.FreeMapper;
 import com.gdu.myhome.dto.FreeDto;
+import com.gdu.myhome.util.MyPageUtils;
 import com.gdu.myhome.util.MySecurityUtils;
-import com.gdu.myhome.util.PageUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +24,7 @@ public class FreeServiceImpl implements FreeService {
 
   private final FreeMapper freeMapper;
   private final MySecurityUtils mySecurityUtils;
-  private final PageUtil pageUtil;
+  private final MyPageUtils myPageUtils;
   
   @Override
   public int addFree(HttpServletRequest request) {
@@ -51,16 +49,16 @@ public class FreeServiceImpl implements FreeService {
     
     int display = 10;
     int total = freeMapper.getFreeCount();
-    pageUtil.setPaging(page, total, display);
+    myPageUtils.setPaging(page, total, display);
     
-    int begin = pageUtil.getBegin();
-    int end = pageUtil.getEnd();
+    int begin = myPageUtils.getBegin();
+    int end = myPageUtils.getEnd();
     
     Map<String, Object> map = Map.of("begin", begin, "end", end);
     List<FreeDto> freeList = freeMapper.getFreeList(map);
     
     model.addAttribute("freeList", freeList);
-    model.addAttribute("paging", pageUtil.getMvcPaging(request.getContextPath() + "/free/list.do?"));
+    model.addAttribute("paging", myPageUtils.getMvcPaging(request.getContextPath() + "/free/list.do"));
     model.addAttribute("beginNo", total - (page - 1) * display);
     
   }
@@ -119,10 +117,10 @@ public class FreeServiceImpl implements FreeService {
     int page = Integer.parseInt(opt.orElse("1"));
     int display = 10;
     int total = freeMapper.getSearchCount(map);
-    pageUtil.setPaging(page, total, display);
+    myPageUtils.setPaging(page, total, display);
     
-    int begin = pageUtil.getBegin();
-    int end = pageUtil.getEnd();
+    int begin = myPageUtils.getBegin();
+    int end = myPageUtils.getEnd();
     map.put("begin", begin);
     map.put("end", end);
     System.out.println("map" + map);
@@ -130,7 +128,7 @@ public class FreeServiceImpl implements FreeService {
     System.out.println("freeList" + freeList);
     
     model.addAttribute("freeList", freeList);
-    model.addAttribute("paging", pageUtil.getMvcPaging(request.getContextPath() + "/free/search.do?column=" + column + "&query=" + query + "&"));
+    model.addAttribute("paging", myPageUtils.getMvcPaging(request.getContextPath() + "/free/search.do", "column=" + column + "&query=" + query));
     model.addAttribute("beginNo", total - (page - 1) * display);
     
   }

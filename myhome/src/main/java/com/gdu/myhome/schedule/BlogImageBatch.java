@@ -1,0 +1,22 @@
+package com.gdu.myhome.schedule;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import com.gdu.myhome.service.BlogService;
+import com.gdu.myhome.util.MyFileUtils;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Component
+public class BlogImageBatch {
+
+  private final BlogService blogService;
+  
+  @Scheduled(cron="0 0 1 1/1 * ?")  // 매일 17시에 동작
+  public void execute() {
+    blogService.blogImageBatch();
+  }
+  
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.gdu.myhome.dao.BlogMapper">
+	
+  <insert id="insertBlog" parameterType="BlogDto">
+    <selectKey order="BEFORE" keyProperty="blogNo" resultType="int">
+      SELECT BLOG_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO BLOG_T (
+      BLOG_NO,
+      TITLE,
+      CONTENTS,
+      USER_NO,
+      IP,
+      CREATED_AT,
+      MODIFIED_AT
+    ) VALUES(
+      #{blogNo},
+      #{title},
+      #{contents},
+      #{userNo},
+      #{ip},
+      TO_CHAR(SYSDATE),
+      TO_CHAR(SYSDATE)
+    )
+  </insert>
+  
+  <insert id="insertBlogImage" parameterType="BlogImageDto">
+    INSERT INTO BLOG_IMAGE_T (
+      BLOG_NO,
+      IMAGE_PATH,
+      FILESYSTEM_NAME
+    ) VALUES(
+      #{blogNo},
+      #{imagePath},
+      #{filesystemName}
+    )    
+  </insert>
+  
+  <select id="getBlogImageYesterady" resultType="BlogImageDto">
+    SELECT BLOG_NO, IMAGE_PATH, FILESYSTEM_NAME
+      FROM BLOG_IMAGE_T
+     WHERE IMAGE_PATH LIKE '/blog/' || TO_CHAR(SYSDATE - 1, 'YYYY/MM/DD')
+  </select>
+    
+  <select id="getBlogCount" resultType="int">
+    SELECT COUNT(*)
+      FROM BLOG_T
+  </select> 
+   
+  <select id="getBlogList" parameterType="Map" resultType="BlogDto">
+    SELECT BLOG_NO,
+            TITLE,
+            CONTENTS,
+            USER_NO,
+            HIT,
+            IP,
+            CREATED_AT,
+            MODIFIED_AT
+      FROM BLOG_T
+     WHERE BLOG_NO BETWEEN #{begin} AND #{end}
+  </select>
+  
+</mapper>
