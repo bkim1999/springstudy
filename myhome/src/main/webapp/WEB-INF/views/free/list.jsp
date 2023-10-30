@@ -86,7 +86,7 @@
           </tr>
         </c:forEach>
       </tbody>
-      <tfoot class="d-flex justify-content-between">
+      <tfoot>
         <tr>
           <td colspan="4">${paging}</td>
         </tr>

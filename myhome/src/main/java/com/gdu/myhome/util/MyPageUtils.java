@@ -51,8 +51,8 @@ public class MyPageUtils {
   public String getMvcPaging(String url) {
     
     StringBuilder sb = new StringBuilder();
-    
-    sb.append("<div>");
+
+    sb.append("<div class=\"d-flex justify-content-evenly\">");
     
     // 이전 블록
     if(beginPage == 1) {
@@ -64,7 +64,7 @@ public class MyPageUtils {
     // 페이지 번호
     for(int p = beginPage; p <= endPage; p++) {
       if(p == page) {
-        sb.append("<a>" + p + "</a>");
+        sb.append("<a><strong>" + p + "</strong></a>");
       } else {
         sb.append("<a href=\"" + url + "?page=" + p + "\">" + p + "</a>");
       }
@@ -87,7 +87,7 @@ public class MyPageUtils {
     
     StringBuilder sb = new StringBuilder();
     
-    sb.append("<div>");
+    sb.append("<div class=\"d-flex justify-content-evenly\">");
     
     // 이전 블록
     if(beginPage == 1) {
@@ -99,7 +99,7 @@ public class MyPageUtils {
     // 페이지 번호
     for(int p = beginPage; p <= endPage; p++) {
       if(p == page) {
-        sb.append("<a>" + p + "</a>");
+        sb.append("<a><strong>" + p + "</strong></a>");
       } else {
         sb.append("<a href=\"" + url + "?page=" + p + "&" + params + "\">" + p + "</a>");
       }
@@ -122,7 +122,7 @@ public class MyPageUtils {
     
     StringBuilder sb = new StringBuilder();
     
-    sb.append("<div>");
+    sb.append("<div class=\"d-flex justify-content-evenly\">");
     
     // 이전 블록
     if(beginPage == 1) {
@@ -134,7 +134,7 @@ public class MyPageUtils {
     // 페이지 번호
     for(int p = beginPage; p <= endPage; p++) {
       if(p == page) {
-        sb.append("<a>" + p + "</a>");
+        sb.append("<a><strong>" + p + "</strong></a>");
       } else {
         sb.append("<a href=\"javascript:fnAjaxPaging(" + p + ")\">" + p + "</a>");
       }
