@@ -23,7 +23,7 @@
     </div>
     <div>
       <input type="hidden" name="referer" value="${referer}">
-      <button>로그인</button>
+      <button class="btn btn-success">로그인</button>
     </div>
     <div>
       <input type="checkbox" name="chk_auto_login" id="chk_auto_login">

@@ -7,7 +7,7 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="블로그작성" name="title"/>
+  <jsp:param value="블로그수정" name="title"/>
 </jsp:include>
 
 <style>
@@ -24,22 +24,22 @@
 
 <div>
 
-  <form id="frm_blog_add" method="post" action="${contextPath}/blog/addBlog.do">
+  <form id="frm_blog_add" method="post" action="${contextPath}/blog/modify.do">
     
-    <h1 style="text-align: center;">블로그를 작성하세요</h1>
+    <h1 style="text-align: center;">${blog.blogNo}번 게시물 수정</h1>
     
     <div>
       <label for="title">제목</label>
-      <input type="text" name="title" id="title" class="form-control">
+      <input type="text" name="title" id="title" class="form-control" value="${blog.title}">
     </div>
     
     <div>
       <label for="contents">내용</label>
-      <textarea name="contents" id="contents"></textarea>
+      <textarea name="contents" id="contents">${blog.contents}</textarea>
     </div>
     
     <div>
-      <input type="hidden" name="userNo" value="${sessionScope.user.userNo}">
+      <input type="hidden" name="blogNo" value="${blog.blogNo}">
       <button class="btn btn-primary col-12" type="submit"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
     </div>
     

@@ -26,7 +26,7 @@
       <textarea name="contents" id="contents"></textarea>
     </div>
     <div>
-      <button>작성완료</button>
+      <button class="btn btn-primary">작성완료</button>
     </div>
     
   </form>

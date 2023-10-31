@@ -166,8 +166,6 @@ public class BlogServiceImpl implements BlogService {
   public Map<String, Object> addComment(HttpServletRequest request) {
     
     String contents = request.getParameter("contents");
-    System.out.println(request.getParameter("contents"));
-    System.out.println(request.getParameter("userNo"));
     int userNo = Integer.parseInt(request.getParameter("userNo"));
     int blogNo = Integer.parseInt(request.getParameter("blogNo"));
     
@@ -181,6 +179,28 @@ public class BlogServiceImpl implements BlogService {
     
     return Map.of("addCommentResult", addCommentResult);
     
+  }
+  
+  @Override
+  public int modifyBlog(HttpServletRequest request) {
+    
+    String title = request.getParameter("title");
+    String contents = request.getParameter("contents");
+    int blogNo = Integer.parseInt(request.getParameter("blogNo"));
+    
+    BlogDto blog = BlogDto.builder()
+                          .title(title)
+                          .contents(contents)
+                          .blogNo(blogNo)
+                          .build();
+    
+    return blogMapper.updateBlog(blog);
+    
+  }
+  
+  @Override
+  public int removeBlog(int blogNo) {
+    return blogMapper.deleteBlog(blogNo);
   }
   
   @Transactional(readOnly=true)
@@ -201,6 +221,34 @@ public class BlogServiceImpl implements BlogService {
     
     return Map.of("commentList", commentList, "paging", myPageUtils.getAjaxPaging());
     
+  }
+  
+  @Override
+  public Map<String, Object> addCommentReply(HttpServletRequest request) {
+    
+    String contents = request.getParameter("replyContents");
+    int userNo = Integer.parseInt(request.getParameter("userNo"));
+    int blogNo = Integer.parseInt(request.getParameter("blogNo"));
+    int groupNo = Integer.parseInt(request.getParameter("groupNo"));
+    String ip = request.getRemoteAddr();
+    
+    CommentDto comment = CommentDto.builder()
+                                    .contents(contents)
+                                    .blogNo(blogNo)
+                                    .groupNo(groupNo)
+                                    .userDto(UserDto.builder().userNo(userNo).build())
+                                    .build();
+    
+    int addCommentReplyResult = blogMapper.insertCommentReply(comment);
+    
+    return Map.of("addCommentReplyResult", addCommentReplyResult) ;
+    
+  }
+  
+  @Override
+  public Map<String, Object> removeComment(int blogNo) {
+    int removeCommentResult = blogMapper.deleteComment(blogNo);
+    return Map.of("removeCommentResult", removeCommentResult);
   }
   
 }

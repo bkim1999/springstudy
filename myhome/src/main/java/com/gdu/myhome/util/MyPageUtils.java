@@ -52,29 +52,41 @@ public class MyPageUtils {
     
     StringBuilder sb = new StringBuilder();
 
-    sb.append("<div class=\"d-flex justify-content-evenly\">");
+    sb.append("<nav><ul class=\"pagination justify-content-center\">");
     
     // 이전 블록
     if(beginPage == 1) {
-      sb.append("<a>이전</a>");
+      sb.append("<li class=\"page-item disabled\">");
+      sb.append("  <a class=\"page-link\" href=\"#\" tabindex=\"-1\">이전</a>");
+      sb.append("</li>");
     } else {
-      sb.append("<a href=\"" + url + "?page=" + (beginPage - 1) + "\">이전</a>");
+      sb.append("<li class=\"page-item\">");
+      sb.append("  <a class=\"page-link\" href=\"" + url + "?page=" + (beginPage - 1) + "\">이전</a>");
+      sb.append("</li>");
     }
     
     // 페이지 번호
     for(int p = beginPage; p <= endPage; p++) {
       if(p == page) {
-        sb.append("<a><strong>" + p + "</strong></a>");
+        sb.append("<li class=\"page-item active\">");
+        sb.append("  <span class=\"page-link\">" + p + "</span>");
+        sb.append("</li>");
       } else {
-        sb.append("<a href=\"" + url + "?page=" + p + "\">" + p + "</a>");
+        sb.append("<li class=\"page-item\">");
+        sb.append("  <a class=\"page-link\" href=\"" + url + "?page=" + p + "\">" + p + "</a>");
+        sb.append("</li>");
       }
     }
     
     // 다음 블록
     if(endPage == totalPage) {
-      sb.append("<a>다음</a>");
+      sb.append("<li class=\"page-item disabled\">");
+      sb.append("  <a class=\"page-link\" href=\"#\" tabindex=\"-1\">다음</a>");
+      sb.append("</li>");
     } else {
-      sb.append("<a href=\"" + url + "?page=" + (endPage + 1) + "\">다음</a>");
+      sb.append("<li class=\"page-item\">");
+      sb.append("  <a class=\"page-link\" href=\"" + url + "?page=" + (endPage + 1) + "\">다음</a>");
+      sb.append("</li>");
     }
     
     sb.append("</div>");
@@ -86,30 +98,42 @@ public class MyPageUtils {
   public String getMvcPaging(String url, String params) {
     
     StringBuilder sb = new StringBuilder();
-    
-    sb.append("<div class=\"d-flex justify-content-evenly\">");
+
+    sb.append("<nav><ul class=\"pagination justify-content-center\">");
     
     // 이전 블록
     if(beginPage == 1) {
-      sb.append("<a>이전</a>");
+      sb.append("<li class=\"page-item disabled\">");
+      sb.append("  <a class=\"page-link\" href=\"#\" tabindex=\"-1\">이전</a>");
+      sb.append("</li>");
     } else {
-      sb.append("<a href=\"" + url + "?page=" + (beginPage - 1) + "&" + params + "\">이전</a>");
+      sb.append("<li class=\"page-item\">");
+      sb.append("  <a class=\"page-link\" href=\"" + url + "?page=" + (beginPage - 1) + "&" + params + "\">이전</a>");
+      sb.append("</li>");
     }
     
     // 페이지 번호
     for(int p = beginPage; p <= endPage; p++) {
       if(p == page) {
-        sb.append("<a><strong>" + p + "</strong></a>");
+        sb.append("<li class=\"page-item active\">");
+        sb.append("  <span class=\"page-link\">" + p + "</span>");
+        sb.append("</li>");
       } else {
-        sb.append("<a href=\"" + url + "?page=" + p + "&" + params + "\">" + p + "</a>");
+        sb.append("<li class=\"page-item\">");
+        sb.append("  <a class=\"page-link\" href=\"" + url + "?page=" + p + "&" + params + "\">" + p + "</a>");
+        sb.append("</li>");
       }
     }
     
     // 다음 블록
     if(endPage == totalPage) {
-      sb.append("<a>다음</a>");
+      sb.append("<li class=\"page-item disabled\">");
+      sb.append("  <a class=\"page-link\" href=\"#\" tabindex=\"-1\">다음</a>");
+      sb.append("</li>");
     } else {
-      sb.append("<a href=\"" + url + "?page=" + (endPage + 1) + "&" + params + "\">다음</a>");
+      sb.append("<li class=\"page-item\">");
+      sb.append("  <a class=\"page-link\" href=\"" + url + "?page=" + (endPage + 1) + "&" + params + "\">다음</a>");
+      sb.append("</li>");
     }
     
     sb.append("</div>");
@@ -121,30 +145,42 @@ public class MyPageUtils {
   public String getAjaxPaging() {
     
     StringBuilder sb = new StringBuilder();
-    
-    sb.append("<div class=\"d-flex justify-content-evenly\">");
+
+    sb.append("<nav><ul class=\"pagination justify-content-center\">");
     
     // 이전 블록
     if(beginPage == 1) {
-      sb.append("<a>이전</a>");
+      sb.append("<li class=\"page-item disabled\">");
+      sb.append("  <a class=\"page-link\" href=\"#\" tabindex=\"-1\">이전</a>");
+      sb.append("</li>");
     } else {
-      sb.append("<a href=\"javascript:fnAjaxPaging(" + (beginPage-1) + ")\">이전</a>");
+      sb.append("<li class=\"page-item\">");
+      sb.append("  <a class=\"page-link\" href=\"javascript:fnAjaxPaging(" + (beginPage-1) + ")\">이전</a>");
+      sb.append("</li>");
     }
     
     // 페이지 번호
     for(int p = beginPage; p <= endPage; p++) {
       if(p == page) {
-        sb.append("<a><strong>" + p + "</strong></a>");
+        sb.append("<li class=\"page-item active\">");
+        sb.append("  <span class=\"page-link\">" + p + "</span>");
+        sb.append("</li>");
       } else {
-        sb.append("<a href=\"javascript:fnAjaxPaging(" + p + ")\">" + p + "</a>");
+        sb.append("<li class=\"page-item\">");
+        sb.append("  <a class=\"page-link\" href=\"javascript:fnAjaxPaging(" + p + ")\">" + p + "</a>");
+        sb.append("</li>");
       }
     }
     
     // 다음 블록
     if(endPage == totalPage) {
-      sb.append("<a>다음</a>");
+      sb.append("<li class=\"page-item disabled\">");
+      sb.append("  <a class=\"page-link\" href=\"#\" tabindex=\"-1\">다음</a>");
+      sb.append("</li>");
     } else {
-      sb.append("<a href=\"javascript:fnAjaxPaging(" + (endPage+1) + ")\">다음</a>");
+      sb.append("<li class=\"page-item\">");
+      sb.append("  <a class=\"page-link\" href=\"javascript:fnAjaxPaging(" + (endPage + 1) + ")\">다음</a>");
+      sb.append("</li>");
     }
     
     sb.append("</div>");

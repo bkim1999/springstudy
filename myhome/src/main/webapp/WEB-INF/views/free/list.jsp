@@ -47,15 +47,15 @@
               <td>
                 <c:forEach begin="1" end="${free.depth}">&nbsp;&nbsp;</c:forEach>
                 <c:if test="${free.depth != 0}">
-                  <i class="fa-brands fa-replyd"></i>
+                  <i class="fa-solid fa-arrow-right"></i>
                 </c:if>
                 ${free.contents}
                 <c:if test="${sessionScope.user != null}">
-                  <button type="button" class="btn_reply">댓글</button>
+                  <button type="button" class="btn btn-outline-primary btn-sm btn_reply"><i class="fa-regular fa-comment"></i></button>
                   <form class="frm_remove" method="post" action="${contextPath}/free/remove.do" style="display:inline">
                     <c:if test="${sessionScope.user.email == free.email}">
                       <input type="hidden" name="freeNo" value="${free.freeNo}">
-                      <button type="submit">삭제</button>
+                      <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-xmark"></i></button>
                     </c:if>
                   </form>
                 </c:if>
@@ -77,7 +77,7 @@
                   <label for="contents">내용</label>
                   <input type="text" name="contents" id="contents">
                 </div>
-                <div><button>작성</button></div>
+                <div><button class="btn btn-outline-primary btn-sm">작성</button></div>
                 <input type="hidden" name="depth" value="${free.depth}">
                 <input type="hidden" name="groupNo" value="${free.groupNo}">
                 <input type="hidden" name="groupOrder" value="${free.groupOrder}">
