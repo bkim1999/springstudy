@@ -28,7 +28,7 @@
         </form>
       </c:if>
     </div>
-    <div>${blog.contents}</div>
+    <div id="contents">${blog.contents}</div>
   </div>
   <script>
   
