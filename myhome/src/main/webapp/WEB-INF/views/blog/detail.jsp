@@ -25,6 +25,8 @@
           <button type="button" class="btn btn-outline-warning" id="btn_edit"><i class="fa-regular fa-pen-to-square"></i></button>
           <button type="button" class="btn btn-outline-danger" id="btn_remove"><i class="fa-solid fa-xmark"></i></button>
           <input type="hidden" name="blogNo" value="${blog.blogNo}">
+          <input type="hidden" name="title" value="${blog.title}">
+          <input type="hidden" name="contents" value='${blog.contents}'>
         </form>
       </c:if>
     </div>

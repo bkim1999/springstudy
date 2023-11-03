@@ -15,5 +15,6 @@ public class UploadDto {
   private String contents;
   private String createdAt;
   private String modifiedAt;
-  private UserDto userDto;
+  private int attachCount; // UPLOAD_에는 없음 (목록보기용)
+  private UserDto userDto; // userNo
 }

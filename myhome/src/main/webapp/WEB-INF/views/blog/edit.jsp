@@ -51,6 +51,8 @@
 
 <script>
 
+  let ckeditor;
+  
   const fnCkeditor = () => {
     DecoupledEditor
       .create(document.getElementById('ckeditor'), {
@@ -60,6 +62,7 @@
         }
       })
       .then(editor => {
+    	  ckeditor = editor;
         const toolbarContainer = document.getElementById('toolbar-container');
         toolbarContainer.appendChild(editor.ui.view.toolbar.element);
       })
@@ -70,7 +73,7 @@
   
   const fnBlogModify = () => {
     $('#frm_blog_modify').submit(() => {
-      $('#contents').val($('#ckeditor').html());
+      $('#contents').val(ckeditor.getData());
     })
   }
   

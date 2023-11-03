@@ -21,6 +21,11 @@ public class MyFileUtils {
     return "/upload/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(today);
   }
   
+  // 임시파일 저장 경로 반환하기 (zip 파일)
+  public String getTempPath() {
+    return "/temp";
+  }
+  
   // 파일이 저장될 이름 반환하기
   public String getFilesystemName(String originalFilename) {
     
@@ -42,6 +47,10 @@ public class MyFileUtils {
     LocalDate date = LocalDate.now();
     date = date.minusDays(1);
     return "/blog/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(date);
+  }
+  
+  public String getTempFilename() {
+    return System.currentTimeMillis() + ""; 
   }
   
 }

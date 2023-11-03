@@ -51,15 +51,18 @@
 
 <script>
 
+  let ckeditor;
+  
   const fnCkeditor = () => {
     DecoupledEditor
-      .create(document.getElementById('contents'), {
+      .create(document.getElementById('ckeditor'), {
         ckfinder: {
           // 이미지 업로드 경로
           uploadUrl: '${contextPath}/blog/imageUpload.do'         
         }
       })
       .then(editor => {
+    	  ckeditor = editor;
         const toolbarContainer = document.getElementById('toolbar-container');
         toolbarContainer.appendChild(editor.ui.view.toolbar.element);
       })
@@ -70,12 +73,12 @@
   
   const fnBlogAdd = () => {
     $('#frm_blog_add').submit((ev) => {
-      $('#contents').html($('#ckeditor').html());
+      $('#contents').val(ckeditor.getData());
     })
   }
   
   fnCkeditor();
-  //fnBlogAdd();
+  fnBlogAdd();
   
 </script>
 
